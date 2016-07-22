@@ -1,0 +1,17 @@
+version: 1.0.{build}
+environment:
+  NUGET_APIKEY:
+    secure: YP/3KxC2ffsuHNaolPXj66JVGzSjON9FcR2S2OEzn9c6SV14oPzUh1ySyeT+G+aA
+  NUGET_SOURCE: https://www.myget.org/F/ghuntley/api/v2
+xamarin:
+  email: ghuntley@ghuntley.com
+  password:
+    secure: 9PLfbvP3ON+Xk17Yd4rJag==
+  android: true
+  ios: true
+build_script:
+- cmd: ./build.cmd
+test: off
+artifacts:
+- path: '**/bin/*'
+- path: artifacts/*

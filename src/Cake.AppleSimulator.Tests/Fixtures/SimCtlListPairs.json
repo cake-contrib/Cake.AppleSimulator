@@ -1,0 +1,30 @@
+﻿{
+  "pairs": {
+    "AF4F827C-0576-4A2E-A18A-CEEE516568A4": {
+      "watch": {
+        "name": "Apple Watch - 38mm",
+        "udid": "BA8B7A9D-48CE-4D2E-8F42-A1BE279DE374",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 6s",
+        "udid": "388482AE-6B55-4C14-BF61-F0CAE3E993EA",
+        "state": "Booted"
+      },
+      "state": "(active, disconnected)"
+    },
+    "9DAA91F5-85F0-4EDC-B831-73D0059E22B5": {
+      "watch": {
+        "name": "Apple Watch - 42mm",
+        "udid": "1F647CAB-89E4-40BB-95C8-590AE755AD58",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 6s Plus",
+        "udid": "8D4F5981-15D7-47BF-9A26-0FC9DCDD637F",
+        "state": "Shutdown"
+      },
+      "state": "(active, disconnected)"
+    }
+  }
+}
