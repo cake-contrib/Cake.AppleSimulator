@@ -1,6 +1,6 @@
 ## Cake.AppleSimulator [![Build status](https://ci.appveyor.com/api/projects/status/66ei8wp7jbgknfll/branch/master?svg=true)](https://ci.appveyor.com/project/ghuntley/cake-applesimulator/branch/master)
 
-Cake Build addin for managing (simctl) Apple iOS/watchOS/appleTV simulators.
+Cake Build addin for managing (simctl) Apple iOS/watchOS/TV simulators.
 
 ## Installation
 
