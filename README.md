@@ -1,6 +1,4 @@
-## Cake.AppleSimulator [![Build status](https://ci.appveyor.com/api/projects/status/66ei8wp7jbgknfll/branch/master?svg=true)](https://ci.appveyor.com/project/ghuntley/cake-applesimulator/branch/master)
-
-Cake Build addin for managing (simctl) Apple iOS/watchOS/TV simulators.
+A [Cake Build](https://www.dotnetfoundation.org/blog/cake-welcome) addin for managing (simctl) Apple iOS/watchOS/TV simulators.
 
 ## Installation
 
@@ -14,7 +12,6 @@ Add the following reference to your cake build script:
 ## Usage
 
 ```csharp
-
 // erase/factory reset, then power on an iPhone 6.3 simulator running iOS 9.3 and then shut it down.
 IReadonlyList<AppleSimulator> simulator = ListGenymotionSimulators();
 
@@ -42,85 +39,77 @@ void LaunchAppleSimulator(string deviceIdentifier)
 void ShutdownAllSimulators();
 ```
 
-### List Defined Simulators
+### List defined simulators
 
 ```csharp
 IReadonlyList<AppleSimulator> ListAppleSimulators();
 
 public sealed class AppleSimulator
 {
-        public string Availability { get; set; }
-        public string Name { get; set; }
-        public string Runtime { get; set; }
-        public string State { get; set; }
-        public string UDID { get; set; }
+    public string Availability { get; set; }
+    public string Name { get; set; }
+    public string Runtime { get; set; }
+    public string State { get; set; }
+    public string UDID { get; set; }
 }
 ```
 
-### List Defined Simulator Pairings
+### List defined simulator pairings
 
 ```csharp
 IReadonlyList<AppleSimulator> ListAppleSimulatorPairs();
 
 public sealed class AppleSimulatorPair
 {
-	public string State { get; set; }
-	public string UDID { get; set; }
-	public AppleSimulatorPairedPhone Phone { get; set; }
-	public AppleSimulatorPairedWatch Watch { get; set; }
+    public string State { get; set; }
+    public string UDID { get; set; }
+    public AppleSimulatorPairedPhone Phone { get; set; }
+    public AppleSimulatorPairedWatch Watch { get; set; }
 }
 
 public sealed class AppleSimulatorPairedPhone
 {
-	public string Name { get; set; }
-	public string State { get; set; }
-	public string UDID { get; set; }
+    public string Name { get; set; }
+    public string State { get; set; }
+    public string UDID { get; set; }
 }
 
 public sealed class AppleSimulatorPairedWatch
 {
-	public string Name { get; set; }
-	public string State { get; set; }
-	public string UDID { get; set; }
+    public string Name { get; set; }
+    public string State { get; set; }
+    public string UDID { get; set; }
 }
 ```
 
 
-### List Installed Simulator Runtimes
+### List installed simulator runtimes
 ```csharp
 IReadonlyList<AppleSimulatorRuntime> ListAppleSimulatorRuntimes();
 
 public sealed class AppleSimulatorRuntime
 {
-	public string Availability { get; set; }
-	public string BuildVersion { get; set; }
-	public string Identifier { get; set; }
-	public string Name { get; set; }
-	public string Version { get; set; }
+    public string Availability { get; set; }
+    public string BuildVersion { get; set; }
+    public string Identifier { get; set; }
+    public string Name { get; set; }
+    public string Version { get; set; }
 }
 ```
 
-### List Installed Simulator Devicetypes
+### List installed simulator devicetypes
 ```csharp
 IReadonlyList<AppleSimulatorDeviceType> ListAppleSimulatorDeviceTypes();
 
 public sealed class AppleSimulatorDeviceType
 {
-	/// <summary>
-	/// The runtime identifier of the simulator (i.e. com.apple.CoreSimulator.SimDeviceType.iPad-Air)
-	/// </summary>
-	public string Identifier { get; set; }
-
-	/// <summary>
-	/// The simulator name (i.e. iPad Air)
-	/// </summary>
-	public string Name { get; set; }
+    public string Identifier { get; set; }
+    public string Name { get; set; }
 }
 ```
 
-## The Future
-
-The infrastructure for the following is in place but not implemented, open an issue, discuss and then send in a PR.
+## The future
+The infrastructure for the following is in place but not implemented, open an issue on GitHub, discuss and then send in a PR. Cheers!
 
 * Add video/photos to asset libary.
 * Install application onto simulator.
