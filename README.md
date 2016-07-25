@@ -59,7 +59,7 @@ public sealed class AppleSimulator
 ### List defined simulator pairings
 
 ```csharp
-IReadonlyList<AppleSimulator> ListAppleSimulatorPairs();
+IReadonlyList<AppleSimulatorPair> ListAppleSimulatorPairs();
 
 public sealed class AppleSimulatorPair
 {
