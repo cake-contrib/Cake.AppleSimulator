@@ -1,15 +1,13 @@
-﻿using Cake.AppleSimulator.Extensions;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading;
+using Cake.AppleSimulator.UnitTest;
 using Cake.Core;
 using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Threading;
 
 namespace Cake.AppleSimulator.SimCtl
 {
@@ -35,7 +33,45 @@ namespace Cake.AppleSimulator.SimCtl
             Run(Settings, arguments);
         }
 
-        public IReadOnlyList<AppleSimulatorDeviceType> ListDeviceTypes()
+		public void InstallApplication(string deviceIdentifier, string applicationPath)
+		{
+			var arguments = CreateArgumentBuilder(Settings)
+				.Append("install")
+				.AppendQuoted(deviceIdentifier)
+				.Append(applicationPath);
+			Run(Settings, arguments);
+		}
+
+		public void UninstallApplication(string deviceIdentifier, string appIdentifier)
+		{
+			var arguments = CreateArgumentBuilder(Settings)
+				.Append("uninstall")
+				.AppendQuoted(deviceIdentifier)
+				.AppendQuoted(appIdentifier);
+			Run(Settings, arguments);
+		}
+
+		public void LaunchApplication(string deviceIdentifier, string appIdentifier)
+		{
+			var arguments = CreateArgumentBuilder(Settings)
+				.Append("launch")
+				.AppendQuoted(deviceIdentifier)
+				.AppendQuoted(appIdentifier);
+			Run(Settings, arguments);
+		}
+
+		public TestResults TestApplication(string deviceIdentifier, string appIdentifier)
+		{
+			var arguments = CreateArgumentBuilder(Settings)
+				.Append("launch")
+				.Append("--console")
+				.AppendQuoted(deviceIdentifier)
+				.AppendQuoted(appIdentifier);
+			
+			 return	RunAndReturnTestResults(Settings, arguments);
+		}
+
+		public IReadOnlyList<AppleSimulatorDeviceType> ListDeviceTypes()
         {
             var arguments = CreateArgumentBuilder(Settings).Append("list devicetypes").Append(" --json");
 

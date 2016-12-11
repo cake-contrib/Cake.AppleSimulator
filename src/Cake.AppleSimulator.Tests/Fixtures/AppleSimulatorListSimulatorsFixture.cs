@@ -8,7 +8,7 @@ namespace Cake.AppleSimulator.Tests.Fixtures
     {
         public AppleSimulatorListRuntimesFixture()
         {
-            var standardOutput = File.ReadAllLines(@"Fixtures\SimCtlListRuntimes.json");
+            var standardOutput = File.ReadAllLines(Path.Combine("Fixtures", "SimCtlListRuntimes.json"));
             ProcessRunner.Process.SetStandardOutput(standardOutput);
         }
 

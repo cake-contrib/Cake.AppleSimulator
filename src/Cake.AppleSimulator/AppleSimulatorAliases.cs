@@ -4,6 +4,9 @@ using Cake.AppleSimulator.SimCtl;
 using Cake.AppleSimulator.Simulator;
 using Cake.Core;
 using Cake.Core.Annotations;
+using Cake.AppleSimulator.UnitTest;
+using Cake.AppleSimulator.XCRun;
+using Newtonsoft.Json;
 
 namespace Cake.AppleSimulator
 {
@@ -137,13 +140,153 @@ namespace Cake.AppleSimulator
             runner.LaunchSimulator(deviceIdentifier);
         }
 
-        /// <summary>
-        /// Fetch list of installed simulator device types.
-        /// </summary>
-        /// <param name="context"></param>
-        /// <param name="settings"></param>
-        /// <returns></returns>
-        [CakeMethodAlias]
+		/// <summary>
+        /// Installs an application on the specified simulator.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <param name="deviceIdentifier"></param>
+		/// <param name="applicationPath"></param>
+		[CakeMethodAlias]
+		public static void InstalliOSApplication(this ICakeContext context, string deviceIdentifier, string applicationPath)
+		{
+			InstalliOSApplication(context, deviceIdentifier, applicationPath, new SimCtlSettings());
+		}
+
+		/// <summary>
+        /// Installs an application on the specified simulator.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <param name="deviceIdentifier"></param>
+		/// <param name="applicationPath"></param>
+		/// <param name="settings"></param>
+		[CakeMethodAlias]
+		public static void InstalliOSApplication(this ICakeContext context, string deviceIdentifier,
+			string applicationPath, SimCtlSettings settings)
+		{
+			if (string.IsNullOrWhiteSpace(deviceIdentifier))
+			{
+				throw new ArgumentException(nameof(deviceIdentifier));
+			}
+
+			ThrowIfNotRunningOnMac(context);
+
+			var runner = new SimCtlRunner(context.FileSystem, context.Environment, context.ProcessRunner,
+				context.Tools, context.Log, settings);
+			runner.InstallApplication(deviceIdentifier, applicationPath);
+		}
+
+		/// <summary>
+        /// Uninstalls an application on the specified simulator.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <param name="deviceIdentifier"></param>
+		/// <param name="appIdentifier"></param>
+		[CakeMethodAlias]
+		public static void UninstalliOSApplication(this ICakeContext context, string deviceIdentifier, string appIdentifier)
+		{
+			UninstalliOSApplication(context, deviceIdentifier, appIdentifier, new SimCtlSettings());
+		}
+
+		/// <summary>
+        /// Uninstalls an application on the specified simulator.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <param name="deviceIdentifier"></param>
+		/// <param name="appIdentifier"></param>
+		/// <param name="settings"></param>
+		[CakeMethodAlias]
+		public static void UninstalliOSApplication(this ICakeContext context, string deviceIdentifier,
+			string appIdentifier, SimCtlSettings settings)
+		{
+			if (string.IsNullOrWhiteSpace(deviceIdentifier))
+			{
+				throw new ArgumentException(nameof(deviceIdentifier));
+			}
+
+			ThrowIfNotRunningOnMac(context);
+
+			var runner = new SimCtlRunner(context.FileSystem, context.Environment, context.ProcessRunner,
+				context.Tools, context.Log, settings);
+			runner.UninstallApplication(deviceIdentifier, appIdentifier);
+		}
+
+		/// <summary>
+        /// Launches an application on the specified simulator.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <param name="deviceIdentifier"></param>
+		/// <param name="appIdentifier"></param>
+		[CakeMethodAlias]
+		public static void LaunchiOSApplication(this ICakeContext context, string deviceIdentifier, string appIdentifier)
+		{
+			LaunchiOSApplication(context, deviceIdentifier, appIdentifier, new SimCtlSettings());
+		}
+
+		/// <summary>
+        /// Launches an application on the specified simulator.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <param name="deviceIdentifier"></param>
+		/// <param name="appIdentifier"></param>
+		/// <param name="settings"></param>
+		[CakeMethodAlias]
+		public static void LaunchiOSApplication(this ICakeContext context, string deviceIdentifier,
+			string appIdentifier, SimCtlSettings settings)
+		{
+			if (string.IsNullOrWhiteSpace(deviceIdentifier))
+			{
+				throw new ArgumentException(nameof(deviceIdentifier));
+			}
+
+			ThrowIfNotRunningOnMac(context);
+
+			var runner = new SimCtlRunner(context.FileSystem, context.Environment, context.ProcessRunner,
+				context.Tools, context.Log, settings);
+			runner.LaunchApplication(deviceIdentifier, appIdentifier);
+		}
+
+		/// <summary>
+        /// Launches and returns the unit test results of an application on the specified simulator.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <param name="deviceIdentifier"></param>
+		/// <param name="appIdentifier"></param>
+		[CakeMethodAlias]
+		public static TestResults TestiOSApplication(this ICakeContext context, string deviceIdentifier, string appIdentifier)
+		{
+			return TestiOSApplication(context, deviceIdentifier, appIdentifier, new SimCtlSettings());
+		}
+
+		/// <summary>
+        /// Launches and returns the unit test results of an application on the specified simulator.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <param name="deviceIdentifier"></param>
+		/// <param name="appIdentifier"></param>
+		/// <param name="settings"></param>
+		[CakeMethodAlias]
+		public static TestResults TestiOSApplication(this ICakeContext context, string deviceIdentifier,
+			string appIdentifier, SimCtlSettings settings)
+		{
+			if (string.IsNullOrWhiteSpace(deviceIdentifier))
+			{
+				throw new ArgumentException(nameof(deviceIdentifier));
+			}
+
+			ThrowIfNotRunningOnMac(context);
+
+			var runner = new SimCtlRunner(context.FileSystem, context.Environment, context.ProcessRunner,
+				context.Tools, context.Log, settings);
+			return runner.TestApplication(deviceIdentifier, appIdentifier);
+		}
+
+		/// <summary>
+		/// Fetch list of installed simulator device types.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <param name="settings"></param>
+		/// <returns></returns>
+		[CakeMethodAlias]
         public static IReadOnlyList<AppleSimulatorDeviceType> ListAppleSimulatorDeviceTypes(this ICakeContext context,
             SimCtlSettings settings)
         {
@@ -282,15 +425,40 @@ namespace Cake.AppleSimulator
             ShutdownAllAppleSimulators(context, new SimCtlSettings());
         }
 
+		/// <summary>
+		/// Shutdowns all running simulators.
+		/// </summary>
+		/// <param name="context"></param>
+		/// <param name="settings"></param>
+		[CakeMethodAlias]
+		public static string FindXCodeTool(this ICakeContext context, string tool, XCRunSettings settings)
+		{
+			ThrowIfNotRunningOnMac(context);
+
+			var runner = new XCRunRunner(context.FileSystem, context.Environment, context.ProcessRunner, context.Tools,
+				context.Log, settings);
+			return runner.Find(tool);
+		}
+
+		/// <summary>
+		/// Shutdowns all running simulators.
+		/// </summary>
+		/// <param name="context"></param>
+		[CakeMethodAlias]
+		public static string FindXCodeTool(this ICakeContext context, string tool)
+		{
+			return FindXCodeTool(context, tool, new XCRunSettings());
+		}
+
         private static void ThrowIfNotRunningOnMac(ICakeContext context)
         {
             // I've always used IsRunningOnUnix() from ICakeEnvironment, but I know @patriksvensson is currently working
             // on a PlatformFamily as part of #1008 , which actually distinguishes between Linux and OS X. He might be
             // able to chime in on when we can expect those changes..
-            if (!context.Environment.IsUnix())
+            if (!context.Environment.Platform.IsUnix())
             {
                 throw new PlatformNotSupportedException("This Addin only works on OSX.");
             }
         }
-    }
+	}
 }

@@ -1,9 +1,10 @@
-﻿using Cake.AppleSimulator.SimCtl;
+﻿using System;
+using Cake.AppleSimulator.SimCtl;
+using Cake.AppleSimulator.XCRun;
 using Cake.Core;
 using Cake.Core.Diagnostics;
 using Cake.Core.IO;
 using Cake.Core.Tooling;
-using System;
 
 namespace Cake.AppleSimulator.Simulator
 {
@@ -11,12 +12,14 @@ namespace Cake.AppleSimulator.Simulator
     {
         private readonly ICakeLog _log;
         private readonly SimCtlRunner _simCtlRunner;
+        private readonly XCRunRunner _xcrunRunner;
 
         public SimulatorRunner(IFileSystem fileSystem, ICakeEnvironment environment, IProcessRunner processRunner,
             IToolLocator tools, ICakeLog log, SimulatorSettings settings) : base(fileSystem, environment, processRunner, tools, settings)
         {
             _log = log;
             _simCtlRunner = new SimCtlRunner(fileSystem, environment, processRunner, tools, log, new SimCtlSettings());
+            _xcrunRunner = new XCRunRunner(fileSystem, environment, processRunner, tools, log, new XCRunSettings());
         }
 
         public void LaunchSimulator(string deviceIdentifier)
@@ -32,11 +35,16 @@ namespace Cake.AppleSimulator.Simulator
                 // ignore
             }
 
+            const string SimulatorAppSubPath = "Contents/Developer/Applications/Simulator.app";
+            var toolPath = _xcrunRunner.Find("simctl");
+            var appIndex = toolPath.IndexOf(".app/", StringComparison.Ordinal);
+            var app = toolPath.Remove(appIndex + 5) + SimulatorAppSubPath;
             var arguments =
                 CreateArgumentBuilder(Settings)
                     .Append("-Fgn")
-                    .Append("/Applications/Xcode.app/Contents/Developer/Applications/Simulator.app")
+                    .Append(app)
                     .Append("--args")
+                    .Append("-CurrentDeviceUDID")
                     .AppendQuoted(deviceIdentifier);
 
             Run(Settings, arguments);
