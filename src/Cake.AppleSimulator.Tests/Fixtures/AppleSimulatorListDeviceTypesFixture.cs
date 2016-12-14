@@ -8,7 +8,7 @@ namespace Cake.AppleSimulator.Tests.Fixtures
     {
         public AppleSimulatorListDeviceTypesFixture()
         {
-            var standardOutput = File.ReadAllLines(@"Fixtures\SimCtlListDeviceTypes.json");
+            var standardOutput = File.ReadAllLines(Path.Combine("Fixtures", "SimCtlListDeviceTypes.json"));
             ProcessRunner.Process.SetStandardOutput(standardOutput);
         }
 
