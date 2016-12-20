@@ -35,10 +35,11 @@ namespace Cake.AppleSimulator.Simulator
                 // ignore
             }
 
-			const string SimulatorAppSubPath = "Contents/Developer/Applications/Simulator.app";
-			var toolPath = _xcrunRunner.Find("simctl");
-			var appIndex = toolPath.IndexOf(".app/", StringComparison.Ordinal);
-			var app = toolPath.Remove(appIndex + 5) + SimulatorAppSubPath;
+            const string SimulatorAppSubPath = "Contents/Developer/Applications/Simulator.app";
+            var toolPath = _xcrunRunner.Find("simctl");
+            var appIndex = toolPath.IndexOf(".app/", StringComparison.Ordinal);
+            var app = toolPath.Remove(appIndex + 5) + SimulatorAppSubPath;
+
             var arguments =
                 CreateArgumentBuilder(Settings)
                     .Append("-Fgn")

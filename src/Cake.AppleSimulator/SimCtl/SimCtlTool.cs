@@ -3,8 +3,9 @@ using Cake.Core.IO;
 using Cake.Core.Tooling;
 using System;
 using System.Collections.Generic;
+using Cake.AppleSimulator.SimCtl;
 
-namespace Cake.AppleSimulator.SimCtl
+namespace Cake.AppleSimulator.UnitTest
 {
     /// <summary>
     ///     Base class for all AppleSimulator related tools.
@@ -55,7 +56,9 @@ namespace Cake.AppleSimulator.SimCtl
         /// <returns>The alternative locations for the tool.</returns>
         protected override IEnumerable<FilePath> GetAlternativeToolPaths(TSettings settings)
         {
-            return new[] { new FilePath("/Applications/Xcode.app/Contents/Developer/usr/bin/simctl") };
+            return new[] {
+                new FilePath("/Applications/Xcode.app/Contents/Developer/usr/bin/simctl")
+            };
         }
 
         /// <summary>
@@ -97,5 +100,26 @@ namespace Cake.AppleSimulator.SimCtl
 
             return stdOutput;
         }
+
+        /// <summary>
+        ///     Runs the specified process, using the specified Settings/arguments and returns xUnit/NUnit Test Results
+        /// </summary>
+        /// <param name="settings">The Settings.</param>
+        /// <param name="arguments">The arguments.</param>
+        protected TestResults RunAndReturnTestResults(TSettings settings, ProcessArgumentBuilder arguments)
+        {
+            var testResults = new TestResults();
+
+            Run(settings, arguments,
+                new ProcessSettings
+                {
+                    RedirectStandardOutput = true
+                }, process =>
+                {
+                    TestParsing.TestResultsFromStdOut(process, testResults);
+                });
+            return testResults;
+        }
+
     }
 }
