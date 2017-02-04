@@ -1,5 +1,9 @@
 version: 1.0.{build}
 environment:
+  GITHUB_USERNAME:
+    secure: 0Q9MvUId56SizmZwCf0cgg==
+  GITHUB_TOKEN:
+    secure: egpO9sZJN4KlnyHlFMSMu1NAeWZ/3diyUXLQMLF5HlnVb/6mXG8Lejm+Ib+4bCF7
   NUGET_APIKEY:
     secure: YP/3KxC2ffsuHNaolPXj66JVGzSjON9FcR2S2OEzn9c6SV14oPzUh1ySyeT+G+aA
   NUGET_SOURCE: https://www.myget.org/F/ghuntley/api/v2

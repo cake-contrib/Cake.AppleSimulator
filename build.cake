@@ -8,15 +8,19 @@
 // TOOLS
 //////////////////////////////////////////////////////////////////////
 
-#tool GitVersion.CommandLine
-#tool GitLink
+#tool "GitReleaseManager"
+#tool "GitVersion.CommandLine"
+#tool "GitLink"
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
 //////////////////////////////////////////////////////////////////////
 
 var target = Argument("target", "Default");
-var configuration = Argument("configuration", "Release");
+if (string.IsNullOrWhiteSpace(target))
+{
+    target = "Default";
+}
 
 //////////////////////////////////////////////////////////////////////
 // PREPARATION
@@ -25,29 +29,33 @@ var configuration = Argument("configuration", "Release");
 // should MSBuild & GitLink treat any errors as warnings.
 var treatWarningsAsErrors = false;
 
-// Get whether or not this is a local build.
+// Build configuration
 var local = BuildSystem.IsLocalBuild;
 var isRunningOnUnix = IsRunningOnUnix();
 var isRunningOnWindows = IsRunningOnWindows();
 
-//var isRunningOnBitrise = Bitrise.IsRunningOnBitrise;
 var isRunningOnAppVeyor = AppVeyor.IsRunningOnAppVeyor;
 var isPullRequest = AppVeyor.Environment.PullRequest.IsPullRequest;
+var isRepository = StringComparer.OrdinalIgnoreCase.Equals("ghuntley/cake.applesimulator", AppVeyor.Environment.Repository.Name);
 
-var isRepository = StringComparer.OrdinalIgnoreCase.Equals("ghuntley/Cake.AppleSimulator", AppVeyor.Environment.Repository.Name);
+var isReleaseBranch = StringComparer.OrdinalIgnoreCase.Equals("master", AppVeyor.Environment.Repository.Branch);
+var isTagged = AppVeyor.Environment.Repository.Tag.IsTag;
 
-// Parse release notes.
-var releaseNotes = ParseReleaseNotes("RELEASENOTES.md");
+var githubOwner = "ghuntley";
+var githubRepository = "Cake.AppleSimulator";
+var githubUrl = string.Format("https://github.com/{0}/{1}", githubOwner, githubRepository);
 
-// Get version.
-var version = releaseNotes.Version.ToString();
-var epoch = (long)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds;
-var gitSha = "GitVersion().Sha"; // gitversion does not work on mono at this stage.
+// Version
+var gitVersion = GitVersion();
+var majorMinorPatch = gitVersion.MajorMinorPatch;
+var semVersion = gitVersion.SemVer;
+var informationalVersion = gitVersion.InformationalVersion;
+var nugetVersion = gitVersion.NuGetVersion;
+var buildVersion = gitVersion.FullBuildMetaData;
 
-var semVersion = local ? string.Format("{0}.{1}", version, epoch) : string.Format("{0}.{1}", version, epoch);
-
-// Define directories.
+// Artifacts
 var artifactDirectory = "./artifacts/";
+var packageWhitelist = new[] { "Cake.AppleSimulator" };
 
 // Define global marcos.
 Action Abort = () => { throw new Exception("a non-recoverable fatal error occurred."); };
@@ -75,7 +83,7 @@ Action<string, string> Package = (nuspec, basePath) =>
 
         Version                  = semVersion,
         Tags                     = new [] {  "Cake", "Script", "Build", "Xamarin", "iOS", "watchOS", "tvOS", "Simulator", "simctl" },
-        ReleaseNotes             = new List<string>(releaseNotes.Notes),
+        ReleaseNotes             = new [] { string.Format("{0}/releases", githubUrl) },
 
         Symbols                  = true,
         Verbosity                = NuGetVerbosity.Detailed,
@@ -86,23 +94,30 @@ Action<string, string> Package = (nuspec, basePath) =>
 
 Action<string> SourceLink = (solutionFileName) =>
 {
-    GitLink("./", new GitLinkSettings() {
-        RepositoryUrl = "https://github.com/ghuntley/Cake.AppleSimulator",
-        SolutionFileName = solutionFileName,
-        ErrorsAsWarnings = treatWarningsAsErrors,
-    });
+    try 
+    {
+        GitLink("./", new GitLinkSettings() {
+            RepositoryUrl = "https://github.com/ghuntley/Cake.AppleSimulator",
+            SolutionFileName = solutionFileName,
+            ErrorsAsWarnings = treatWarningsAsErrors,
+        });
+    }
+    catch (Exception ex)
+    {
+        Warning("GitLink failed.");
+    }
 };
 
 
 ///////////////////////////////////////////////////////////////////////////////
 // SETUP / TEARDOWN
 ///////////////////////////////////////////////////////////////////////////////
-Setup(() =>
+Setup(context =>
 {
     Information("Building version {0} of Cake.AppleSimulator.", semVersion);
 });
 
-Teardown(() =>
+Teardown(context =>
 {
     // Executed AFTER the last task.
 });
@@ -126,13 +141,13 @@ Task("Build")
         Information("Building {0}", solution);
 
         MSBuild(solution, new MSBuildSettings()
-            .SetConfiguration(configuration)
+            .SetConfiguration("Release")
             .WithProperty("NoWarn", "1591") // ignore missing XML doc warnings
             .WithProperty("TreatWarningsAsErrors", treatWarningsAsErrors.ToString())
             .SetVerbosity(Verbosity.Minimal)
             .SetNodeReuse(false));
 
-        SourceLink(solution);
+            SourceLink(solution);
     };
 
     build("Cake.AppleSimulator.sln");
@@ -142,7 +157,11 @@ Task("UpdateAppVeyorBuildNumber")
     .WithCriteria(() => isRunningOnAppVeyor)
     .Does(() =>
 {
-    AppVeyor.UpdateBuildVersion(semVersion);
+    AppVeyor.UpdateBuildVersion(buildVersion);
+
+}).ReportError(exception =>
+{  
+    Warning("Build with version {0} already exists.", buildVersion);
 });
 
 Task("UpdateAssemblyInfo")
@@ -153,9 +172,9 @@ Task("UpdateAssemblyInfo")
 
     CreateAssemblyInfo(file, new AssemblyInfoSettings {
         Product = "Cake.AppleSimulator",
-        Version = version,
-        FileVersion = version,
-        InformationalVersion = semVersion,
+        Version = majorMinorPatch,
+        FileVersion = majorMinorPatch,
+        InformationalVersion = informationalVersion,
         Copyright = "Copyright (c) Geoffrey Huntley"
     });
 });
@@ -184,11 +203,13 @@ Task("Package")
     Package("./src/Cake.AppleSimulator.nuspec", "./src/Cake.AppleSimulator");
 });
 
-Task("Publish")
+Task("PublishPackages")
+    .IsDependentOn("RunUnitTests")
     .IsDependentOn("Package")
-//    .WithCriteria(() => !local)
+    .WithCriteria(() => !local)
     .WithCriteria(() => !isPullRequest)
-//    .WithCriteria(() => isRepository)
+    .WithCriteria(() => isRepository)
+    .WithCriteria(() => isReleaseBranch)
     .Does (() =>
 {
     // Resolve the API key.
@@ -205,34 +226,97 @@ Task("Publish")
     }
 
     // only push whitelisted packages.
-    foreach(var package in new[] { "Cake.AppleSimulator" })
+    foreach(var package in packageWhitelist)
     {
         // only push the package which was created during this build run.
-        var packagePath = artifactDirectory + File(string.Concat(package, ".", semVersion, ".nupkg"));
-        //var symbolsPath = artifactDirectory + File(string.Concat(package, ".", semVersion, ".symbols.nupkg"));
+        var packagePath = artifactDirectory + File(string.Concat(package, ".", nugetVersion, ".nupkg"));
 
         // Push the package.
         NuGetPush(packagePath, new NuGetPushSettings {
             Source = source,
             ApiKey = apiKey
         });
-
-        // Push the symbols
-        //NuGetPush(symbolsPath, new NuGetPushSettings {
-        //    Source = source,
-        //    ApiKey = apiKey
-        //});
-
     }
+});
+
+Task("CreateRelease")
+    .IsDependentOn("Package")
+    .WithCriteria(() => !local)
+    .WithCriteria(() => !isPullRequest)
+    .WithCriteria(() => isRepository)
+    .WithCriteria(() => isReleaseBranch)
+    .WithCriteria(() => !isTagged)
+    .Does (() =>
+{
+    var username = EnvironmentVariable("GITHUB_USERNAME");
+    if (string.IsNullOrEmpty(username))
+    {
+        throw new Exception("The GITHUB_USERNAME environment variable is not defined.");
+    }
+
+    var token = EnvironmentVariable("GITHUB_TOKEN");
+    if (string.IsNullOrEmpty(token))
+    {
+        throw new Exception("The GITHUB_TOKEN environment variable is not defined.");
+    }
+
+    GitReleaseManagerCreate(username, token, githubOwner, githubRepository, new GitReleaseManagerCreateSettings {
+        Milestone         = majorMinorPatch,
+        Name              = majorMinorPatch,
+        Prerelease        = true,
+        TargetCommitish   = "master"
+    });
+});
+
+Task("PublishRelease")
+    .IsDependentOn("RunUnitTests")
+    .IsDependentOn("Package")
+    .WithCriteria(() => !local)
+    .WithCriteria(() => !isPullRequest)
+    .WithCriteria(() => isRepository)
+    .WithCriteria(() => isReleaseBranch)
+    .WithCriteria(() => isTagged)
+    .Does (() =>
+{
+    var username = EnvironmentVariable("GITHUB_USERNAME");
+    if (string.IsNullOrEmpty(username))
+    {
+        throw new Exception("The GITHUB_USERNAME environment variable is not defined.");
+    }
+
+    var token = EnvironmentVariable("GITHUB_TOKEN");
+    if (string.IsNullOrEmpty(token))
+    {
+        throw new Exception("The GITHUB_TOKEN environment variable is not defined.");
+    }
+
+    // only push whitelisted packages.
+    foreach(var package in packageWhitelist)
+    {
+        // only push the package which was created during this build run.
+        var packagePath = artifactDirectory + File(string.Concat(package, ".", nugetVersion, ".nupkg"));
+
+        GitReleaseManagerAddAssets(username, token, githubOwner, githubRepository, majorMinorPatch, packagePath);
+    }
+
+    GitReleaseManagerClose(username, token, githubOwner, githubRepository, majorMinorPatch);
 });
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
 //////////////////////////////////////////////////////////////////////
 
+Task("Default")
+    .IsDependentOn("CreateRelease")
+    .IsDependentOn("PublishPackages")
+    .IsDependentOn("PublishRelease")
+    .Does (() =>
+{
+
+});
 
 //////////////////////////////////////////////////////////////////////
 // EXECUTION
 //////////////////////////////////////////////////////////////////////
 
-RunTarget("Publish");
+RunTarget(target);
