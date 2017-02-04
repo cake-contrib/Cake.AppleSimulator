@@ -81,7 +81,7 @@ Action<string, string> Package = (nuspec, basePath) =>
         Copyright                = "Copyright (c) Geoffrey Huntley",
         RequireLicenseAcceptance = false,
 
-        Version                  = semVersion,
+        Version                  = nugetVersion,
         Tags                     = new [] {  "Cake", "Script", "Build", "Xamarin", "iOS", "watchOS", "tvOS", "Simulator", "simctl" },
         ReleaseNotes             = new [] { string.Format("{0}/releases", githubUrl) },
 
