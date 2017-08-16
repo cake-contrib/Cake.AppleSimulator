@@ -9,6 +9,9 @@ namespace Cake.AppleSimulator.UnitTest
     {
         public static void TestResultsFromStdOut(IProcess process, TestResults testResults)
         {
+            testResults.PassedList = new System.Collections.Generic.List<string>();
+            testResults.SkippedList = new System.Collections.Generic.List<string>();
+            testResults.FailedList = new System.Collections.Generic.List<string>();
             foreach (var line in process.GetStandardOutput().Reverse())
             {
                 // Unit for Devices = "Tests run: 0 Passed: 0 Failed: 0 Skipped: 0"
@@ -30,7 +33,30 @@ namespace Cake.AppleSimulator.UnitTest
                         testResults.Failed = int.Parse(testArray[3]);
                         testResults.Skipped = int.Parse(testArray[4]);
                     }
-                    break;
+                }
+                else if (line.Contains("[PASS]"))
+                {
+                    string passedTestCaseLine = line.Substring(line.IndexOf("[PASS]", StringComparison.Ordinal));
+                    if (!String.IsNullOrWhiteSpace(passedTestCaseLine))
+                    {
+                        testResults.PassedList.Add(passedTestCaseLine.Trim());
+                    }
+                }
+                else if (line.Contains("[SKIPPED]"))
+                {
+                    string skippedTestCaseLine = line.Substring(line.IndexOf("[SKIPPED]", StringComparison.Ordinal));
+                    if (!String.IsNullOrWhiteSpace(skippedTestCaseLine))
+                    {
+                        testResults.SkippedList.Add(skippedTestCaseLine.Trim());
+                    }
+                }
+                else if (line.Contains("[FAIL]"))
+                {
+                    string failedTestCaseLine = line.Substring(line.IndexOf("[FAIL]", StringComparison.Ordinal));
+                    if (!String.IsNullOrWhiteSpace(failedTestCaseLine))
+                    {
+                        testResults.FailedList.Add(failedTestCaseLine.Trim());
+                    }
                 }
             }
         }
