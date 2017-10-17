@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace Cake.AppleSimulator.UnitTest
 {
 	// XUnit for Devices = "Tests run: 0 Passed: 0 Failed: 0 Skipped: 0"
@@ -10,5 +12,8 @@ namespace Cake.AppleSimulator.UnitTest
 		public int Failed { get; set; }
 		public int Skipped { get; set; }
 		public int Inconclusive { get; set; }
-	}
+        public List<string> FailedList { get; set; }
+        public List<string> PassedList { get; set; }
+        public List<string> SkippedList { get; set; }
+    }
 }
