@@ -26,6 +26,13 @@ var isRunningOnWindows = IsRunningOnWindows();
 var solution = "./src/Cake.AppleSimulator.sln";
 var buildConfiguration = "Release";
 var buildTarget = "Build";
+string[] requiredServicesForReady = {
+    "SimulatorBridge",
+    "SpringBoard",
+    "backboardd",
+    "medialibraryd",
+    "installd",
+};
 
 // Macros
 Action Abort = () => { throw new Exception("A non-recoverable fatal error occurred."); };
@@ -45,6 +52,21 @@ Action<string, string, string> buildThisApp = (p,c,t) =>
         XBuild(p, settings);
     };
 };
+Func<List<string>> RunningServices = () => {
+    System.Diagnostics.Process[] processlist = System.Diagnostics.Process.GetProcesses();
+    var runningServices = new List<String>();
+    foreach(System.Diagnostics.Process p in processlist){
+        if (p != null)
+        {
+            try 
+            {
+                runningServices.Add(p.ProcessName);
+            }
+            catch {} // Ignored
+        }
+    }
+    return runningServices;
+};
 Action<string, string> unitTestApp = (bundleId, appPath) =>
 {
     Information("Shutdown");
@@ -57,7 +79,18 @@ Action<string, string> unitTestApp = (bundleId, appPath) =>
 
     Information("LaunchAppleSimulator");
     LaunchAppleSimulator(device.UDID);
-    Thread.Sleep(60 * 1000);
+        
+    bool ready = false;
+    while (!ready) {
+        var runningServices = RunningServices();
+        var emptyList = requiredServicesForReady.Where(s => !runningServices.Contains(s)).ToList();
+        ready = !emptyList.Any();
+        if (ready) {
+            Information("Services ready");
+        } else {
+            Thread.Sleep(1 * 1000);
+        }
+    }
 
     Information("UninstalliOSApplication");
     UninstalliOSApplication(
