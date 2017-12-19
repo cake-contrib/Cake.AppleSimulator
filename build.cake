@@ -65,31 +65,27 @@ Action<string> RestorePackages = (solution) =>
     NuGetRestore(solution);
 };
 
-Action<string, string> Package = (nuspec, basePath) =>
+Action<string> Package = (nuspec) =>
 {
     CreateDirectory(artifactDirectory);
 
-    Information("Packaging {0} using {1} as the BasePath.", nuspec, basePath);
+    Information("Packaging {0}", nuspec);
 
-    NuGetPack(nuspec, new NuGetPackSettings {
-        Authors                  = new [] { "Geoffrey Huntley" },
-        Owners                   = new [] { "ghuntley" },
+    var settings = new DotNetCorePackSettings
+    {
+        OutputDirectory = artifactDirectory,
+        NoBuild = true,
+        IncludeSource = true,
+        IncludeSymbols = true,
+        Configuration = "Release",
+        ArgumentCustomization = args => args.Append("/p:Version=" + nugetVersion),
+        EnvironmentVariables = new Dictionary<string, string> {
+            { "BuildVersion", buildVersion },
+            { "ReleaseNotes", string.Format("{0}/releases", githubUrl) },
+        },
+    };
 
-        ProjectUrl               = new Uri("https://ghuntley.com/"),
-        IconUrl                  = new Uri("https://raw.githubusercontent.com/cake-build/graphics/master/png/cake-medium.png"),
-        LicenseUrl               = new Uri("https://opensource.org/licenses/MIT"),
-        Copyright                = "Copyright (c) Geoffrey Huntley",
-        RequireLicenseAcceptance = false,
-
-        Version                  = nugetVersion,
-        Tags                     = new [] {  "Cake", "Script", "Build", "Xamarin", "iOS", "watchOS", "tvOS", "Simulator", "simctl" },
-        ReleaseNotes             = new [] { string.Format("{0}/releases", githubUrl) },
-
-        Symbols                  = true,
-        Verbosity                = NuGetVerbosity.Detailed,
-        OutputDirectory          = artifactDirectory,
-        BasePath                 = basePath,
-    });
+    DotNetCorePack(nuspec, settings);
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -111,7 +107,7 @@ Teardown(context =>
 
 Task("Build")
     .IsDependentOn("RestorePackages")
-    .IsDependentOn("UpdateAssemblyInfo")
+    .IsDependentOn("UpdateAppVeyorBuildNumber")
     .Does (() =>
 {
     Action<string> build = (filename) =>
@@ -146,21 +142,6 @@ Task("UpdateAppVeyorBuildNumber")
     Warning("Build with version {0} already exists.", buildVersion);
 });
 
-Task("UpdateAssemblyInfo")
-    .IsDependentOn("UpdateAppVeyorBuildNumber")
-    .Does (() =>
-{
-    var file = "./src/CommonAssemblyInfo.cs";
-
-    CreateAssemblyInfo(file, new AssemblyInfoSettings {
-        Product = "Cake.AppleSimulator",
-        Version = majorMinorPatch,
-        FileVersion = majorMinorPatch,
-        InformationalVersion = informationalVersion,
-        Copyright = "Copyright (c) Geoffrey Huntley"
-    });
-});
-
 Task("RestorePackages").Does (() =>
 {
     RestorePackages("./src/Cake.AppleSimulator.sln");
@@ -170,7 +151,7 @@ Task("RunUnitTests")
     .IsDependentOn("Build")
     .Does(() =>
 {
-    XUnit2("./src/Cake.AppleSimulator.Tests/bin/Release/Cake.AppleSimulator.Tests.dll", new XUnit2Settings {
+    XUnit2("./src/Cake.AppleSimulator.Tests/bin/**/Cake.AppleSimulator.Tests.dll", new XUnit2Settings {
         OutputDirectory = artifactDirectory,
         XmlReportV1 = false,
         NoAppDomain = true
@@ -182,7 +163,7 @@ Task("Package")
     .IsDependentOn("RunUnitTests")
     .Does (() =>
 {
-    Package("./src/Cake.AppleSimulator.nuspec", "./src/Cake.AppleSimulator");
+    Package("./src/Cake.AppleSimulator.sln");
 });
 
 Task("PublishPackages")

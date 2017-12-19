@@ -1,41 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9DC10E93-A002-40BB-8044-D38C9E7568DF}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cake.AppleSimulator.Tests</RootNamespace>
-    <AssemblyName>Cake.AppleSimulator.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
+    <TargetFramework>net46</TargetFramework>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'UnitTesting|AnyCPU' ">
-    <Optimize>false</Optimize>
-    <OutputPath>bin\UnitTesting</OutputPath>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cake.AppleSimulator\Cake.AppleSimulator.csproj" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Cake.Core" Version="0.23.0" />
     <PackageReference Include="Cake.Testing" Version="0.23.0" />
@@ -51,37 +20,17 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.3.1" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fixtures\AppleSimulatorFixture.cs" />
-    <Compile Include="Fixtures\AppleSimulatorListDeviceTypesFixture.cs" />
-    <Compile Include="Fixtures\AppleSimulatorListPairsFixture.cs" />
-    <Compile Include="Fixtures\AppleSimulatorListRuntimesFixture.cs" />
-    <Compile Include="Fixtures\AppleSimulatorListSimulatorsFixture.cs" />
-    <Compile Include="Unit\AppleSimulatorListDeviceTypesTests.cs" />
-    <Compile Include="Unit\AppleSimulatorListRuntimesTests.cs" />
-    <Compile Include="Unit\AppleSimulatorListPairsTests.cs" />
     <None Include="Fixtures\SimCtlListDeviceTypes.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Compile Include="Unit\AppleSimulatorListSimulatorTests.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="Fixtures\SimCtlListDevices.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Compile Include="Fixtures\XCRunFixture.cs" />
-    <Compile Include="Fixtures\XCRunFindSImCrlFxture.cs" />
-    <Compile Include="Unit\XCRunTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Fixtures\SimCtlListPairs.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -89,22 +38,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Cake.AppleSimulator\Cake.AppleSimulator.csproj">
-      <Project>{b06f9d18-b527-480e-ba34-dd10644e2832}</Project>
-      <Name>Cake.AppleSimulator</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
 </Project>
