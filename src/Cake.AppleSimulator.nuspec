@@ -8,9 +8,9 @@
     <language>en-us</language>
   </metadata>
   <files>
-    <!-- .NET 45 -->
-    <file src="bin/Release/Cake.AppleSimulator.dll" target="lib/net45" />
-    <file src="bin/Release/Newtonsoft.Json.dll" target="lib/net45" />
+    <!-- .NET 46 -->
+    <file src="bin/Release/Cake.AppleSimulator.dll" target="lib\net46" />
+    <file src="bin/Release/Newtonsoft.Json.dll" target="lib\net46" />
     <!-- Source -->
     <file src="**\*.cs" exclude="obj\**" target="src" />
   </files>

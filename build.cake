@@ -10,7 +10,7 @@
 
 #tool "GitReleaseManager"
 #tool "GitVersion.CommandLine"
-#tool "GitLink"
+#tool "nuget:?package=xunit.runner.console"
 
 //////////////////////////////////////////////////////////////////////
 // ARGUMENTS
@@ -92,23 +92,6 @@ Action<string, string> Package = (nuspec, basePath) =>
     });
 };
 
-Action<string> SourceLink = (solutionFileName) =>
-{
-    try 
-    {
-        GitLink("./", new GitLinkSettings() {
-            RepositoryUrl = "https://github.com/ghuntley/Cake.AppleSimulator",
-            SolutionFileName = solutionFileName,
-            ErrorsAsWarnings = treatWarningsAsErrors,
-        });
-    }
-    catch (Exception ex)
-    {
-        Warning("GitLink failed.");
-    }
-};
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // SETUP / TEARDOWN
 ///////////////////////////////////////////////////////////////////////////////
@@ -143,11 +126,10 @@ Task("Build")
         MSBuild(solution, new MSBuildSettings()
             .SetConfiguration("Release")
             .WithProperty("NoWarn", "1591") // ignore missing XML doc warnings
+            .WithProperty("NoWarn", "VSX1000") // Ignore missing Mac Server connection
             .WithProperty("TreatWarningsAsErrors", treatWarningsAsErrors.ToString())
             .SetVerbosity(Verbosity.Minimal)
             .SetNodeReuse(false));
-
-            SourceLink(solution);
     };
 
     build("Cake.AppleSimulator.sln");
