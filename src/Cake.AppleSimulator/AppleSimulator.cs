@@ -31,5 +31,15 @@
         /// The unique identifier, that identifies the simulator and is used for operations such as start, create, shutdown, pair.
         /// </summary>
         public string UDID { get; set; }
+
+        /// <summary>
+        /// The status of the simulator
+        /// </summary>
+        public bool IsAvailable { get; set; }
+
+        /// <summary>
+        /// The error code of the simulator if not available
+        /// </summary>
+        public string AvailabilityError { get; set; }
     }
 }
