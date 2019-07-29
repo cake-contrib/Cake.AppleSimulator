@@ -42,6 +42,7 @@ namespace Cake.AppleSimulator.Tests.Unit
 
             fixture.ToolResult.First(x => x.Runtime == "iOS 9.3").Name.Should().Be("iPhone 4s");
             fixture.ToolResult.First(x => x.Runtime == "iOS 9.3").Availability.Should().Be("(available)");
+            fixture.ToolResult.First(x => x.Runtime == "iOS 9.3").IsAvaialble.Should().Be(true);
             fixture.ToolResult.First(x => x.Runtime == "iOS 9.3").State.Should().Be("Shutdown");
             fixture.ToolResult.First(x => x.Runtime == "iOS 9.3").Runtime.Should().Be("iOS 9.3");
         }

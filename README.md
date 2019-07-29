@@ -53,6 +53,8 @@ public sealed class AppleSimulator
     public string Runtime { get; set; }
     public string State { get; set; }
     public string UDID { get; set; }
+	public bool IsAvailable { get; set; }
+	public string AvailabilityError { get; set; }
 }
 ```
 
