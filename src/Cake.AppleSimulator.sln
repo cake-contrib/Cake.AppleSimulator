@@ -3,23 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "! Solution Items", "! Solution Items", "{8F1F16E6-8149-49AB-B67E-633DBB16866E}"
-	ProjectSection(SolutionItems) = preProject
-		..\appveyor.yml = ..\appveyor.yml
-		..\bootstrap.ps1 = ..\bootstrap.ps1
-		..\build.cake = ..\build.cake
-		..\build.cmd = ..\build.cmd
-		..\build.sh = ..\build.sh
-		Cake.AppleSimulator.nuspec = Cake.AppleSimulator.nuspec
-		CommonAssemblyInfo.cs = CommonAssemblyInfo.cs
-		..\LICENSE.md = ..\LICENSE.md
-		..\README.md = ..\README.md
-		..\RELEASENOTES.md = ..\RELEASENOTES.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cake.AppleSimulator", "Cake.AppleSimulator\Cake.AppleSimulator.csproj", "{B06F9D18-B527-480E-BA34-DD10644E2832}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cake.AppleSimulator.Tests", "Cake.AppleSimulator.Tests\Cake.AppleSimulator.Tests.csproj", "{9DC10E93-A002-40BB-8044-D38C9E7568DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cake.AppleSimulator.Tests", "Cake.AppleSimulator.Tests\Cake.AppleSimulator.Tests.csproj", "{9DC10E93-A002-40BB-8044-D38C9E7568DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OnDeviceTestApps", "OnDeviceTestApps", "{8A410502-D0A5-48E6-AB23-76B82FA05406}"
 EndProject
