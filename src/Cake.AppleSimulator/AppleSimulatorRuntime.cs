@@ -1,12 +1,20 @@
-﻿namespace Cake.AppleSimulator
+﻿using System;
+
+namespace Cake.AppleSimulator
 {
     public class AppleSimulatorRuntime
     {
         /// <summary>
-        /// The status of the simulator (
+        /// The status of the simulator
         /// </summary>
         /// <example>(available)</example>
+        [Obsolete("Use IsAvailable instead")]
         public string Availability { get; set; }
+
+        /// <summary>
+        /// Availability of the simulator runtime
+        /// </summary>
+        public bool IsAvailable { get; set; }
 
         /// <summary>
         /// </summary>
