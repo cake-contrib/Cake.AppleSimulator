@@ -231,4 +231,5 @@ _Pvt_Extensions
 .fake/
 
 # Tools
-tools/
+tools/*
+!tools/packages.config
