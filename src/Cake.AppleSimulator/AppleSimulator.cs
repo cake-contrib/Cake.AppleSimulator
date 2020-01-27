@@ -1,4 +1,6 @@
-﻿namespace Cake.AppleSimulator
+﻿using System;
+
+namespace Cake.AppleSimulator
 {
     public sealed class AppleSimulator
     {
@@ -10,6 +12,7 @@
         ///     (unavailable, runtime profile not found)
         ///     (unavailable, Mac OS X 10.11.5 is not supported)
         /// </example>
+        [Obsolete("Use IsAvailable instead")]
         public string Availability { get; set; }
 
         /// <summary>

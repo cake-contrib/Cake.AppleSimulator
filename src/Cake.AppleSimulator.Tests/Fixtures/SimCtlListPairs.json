@@ -1,30 +1,342 @@
 ﻿{
   "pairs": {
-    "AF4F827C-0576-4A2E-A18A-CEEE516568A4": {
+    "6B3FB034-93A6-4466-A59C-71C9F77CEDE1": {
+      "watch": {
+        "name": "Apple Watch Series 2 - 38mm",
+        "udid": "36A3FE85-19E8-4349-A348-FB2A1C81F1E0",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 7",
+        "udid": "208EDBD6-FA1E-4682-A2C0-6DD4A619B4C1",
+        "state": "Booted"
+      },
+      "state": "(unavailable)"
+    },
+    "C6B15FE1-41A0-4EE0-AFC0-50D0099FF614": {
+      "watch": {
+        "name": "Apple Watch Series 3 - 42mm",
+        "udid": "FC290917-007D-4978-84C2-ACFA9502344E",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 8 Plus",
+        "udid": "DE31BC27-2ABB-42C3-BA29-6D99D53560A2",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "F23B6C2A-0CDB-4BC5-AA28-2336514420BF": {
+      "watch": {
+        "name": "Apple Watch Series 3 - 42mm",
+        "udid": "27C708AF-4B7B-4442-826A-F27EF2B7544D",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 8 Plus",
+        "udid": "1ABCC0D3-6F6E-4A7D-B835-651511A89690",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "6B532554-D772-4EE8-98F8-9A0EC9B1102A": {
+      "watch": {
+        "name": "Apple Watch Series 4 - 44mm",
+        "udid": "54A0B036-4B0B-41C9-972D-37449C77F4BA",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone XS Max",
+        "udid": "9202CA71-12BD-485C-934A-8A464086D1C3",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "16DC6A05-DB4D-4BDA-AB7D-0EDC9347BA7B": {
+      "watch": {
+        "name": "Apple Watch Series 2 - 38mm",
+        "udid": "7F0AFFD9-429C-48E4-875D-A23136BECC13",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 7",
+        "udid": "5A8CC0E2-7346-43C7-824A-A13AC632C725",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "5966E833-0F43-4A15-B887-72E6BC1533FA": {
+      "watch": {
+        "name": "Apple Watch Series 2 - 38mm",
+        "udid": "A50A333C-30CD-4E62-AAB2-E7DA71B1AC4B",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 7",
+        "udid": "9FD28236-E940-475E-86A4-2A3ECB0C5F8D",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "81C1D891-2664-48AD-A2AC-96FE9BA05326": {
+      "watch": {
+        "name": "Apple Watch Series 5 - 44mm",
+        "udid": "04AE7784-835A-4164-A3A1-53B7B19A811D",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 11 Pro Max",
+        "udid": "670DDC1B-741A-4FD3-BB54-6F2B85BEDEAD",
+        "state": "Shutdown"
+      },
+      "state": "(active, disconnected)"
+    },
+    "2148E704-8ACE-4D60-9E24-258181F05314": {
+      "watch": {
+        "name": "Apple Watch Series 4 - 44mm",
+        "udid": "0B5A92DA-2073-4431-81D2-DD4DED77E619",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone Xs Max",
+        "udid": "EA801A67-FFD5-4755-83C1-B522CD967AB0",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "7F313826-09E6-49D5-A755-497DA1758442": {
       "watch": {
         "name": "Apple Watch - 38mm",
-        "udid": "BA8B7A9D-48CE-4D2E-8F42-A1BE279DE374",
+        "udid": "B0D56E99-BFE8-48CB-93E8-BDAB829936A5",
         "state": "Shutdown"
       },
       "phone": {
         "name": "iPhone 6s",
-        "udid": "388482AE-6B55-4C14-BF61-F0CAE3E993EA",
-        "state": "Booted"
+        "udid": "112B28AC-5069-4897-8476-6C9ADEC2A238",
+        "state": "Shutdown"
       },
-      "state": "(active, disconnected)"
+      "state": "(unavailable)"
     },
-    "9DAA91F5-85F0-4EDC-B831-73D0059E22B5": {
+    "36588DB5-4954-49F7-8D6B-B1BF18225FB2": {
+      "watch": {
+        "name": "Apple Watch Series 2 - 38mm",
+        "udid": "50B38ED2-77C4-43DE-AD54-21CE2573566F",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 7",
+        "udid": "D3C5D00B-609E-4E07-B728-DC0D8BBFE3BB",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "A2EE62C3-A0A9-414A-851E-DFF59921C637": {
+      "watch": {
+        "name": "Apple Watch Series 2 - 42mm",
+        "udid": "F030D8CC-A60B-475B-92A2-B9E6CBD2FC72",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 7 Plus",
+        "udid": "27571704-A450-4FE9-8B74-E99B64C97765",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "E3B876C6-03AD-488E-AC77-3CA319E8D5DD": {
       "watch": {
         "name": "Apple Watch - 42mm",
-        "udid": "1F647CAB-89E4-40BB-95C8-590AE755AD58",
+        "udid": "486A2B8F-0CDF-4991-ADCF-026267DCFA3C",
         "state": "Shutdown"
       },
       "phone": {
         "name": "iPhone 6s Plus",
-        "udid": "8D4F5981-15D7-47BF-9A26-0FC9DCDD637F",
+        "udid": "A454FD9F-D449-496E-BC70-A69B8CF68CEE",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "EDBAB735-F84B-4797-A9C7-9C7F1B29DD24": {
+      "watch": {
+        "name": "Apple Watch Series 4 - 44mm",
+        "udid": "EB9CC9B0-5FD3-4673-8745-46BA36756003",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone Xs Max",
+        "udid": "2BF1EA30-8F1B-4420-994F-FCB0D420B66A",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "30E51C29-BD96-422F-9628-D83486AD3C9B": {
+      "watch": {
+        "name": "Apple Watch Series 2 - 42mm",
+        "udid": "55D83117-7C23-4ECE-9899-2B2C5DE1A79A",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 7 Plus",
+        "udid": "A9A0528E-BFF2-4E07-BB84-EA334E866343",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "3FA1D5CC-1396-46C3-BAD4-3645B03A1C34": {
+      "watch": {
+        "name": "Apple Watch Series 2 - 42mm",
+        "udid": "46125804-A12E-4B1A-A6C8-E0E90959BFF0",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 7 Plus",
+        "udid": "C6F0E63D-B520-4BB5-A007-893E9460EE5A",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "25FFAE49-B8BF-4648-953C-892EAC613436": {
+      "watch": {
+        "name": "Apple Watch - 42mm",
+        "udid": "B4A3D5C6-CAED-439D-932E-C34137DE1F9B",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 6s Plus",
+        "udid": "89585847-4166-4CB4-A738-3BDEF56357C1",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "DA4859C9-60D6-491E-B862-4C632353034D": {
+      "watch": {
+        "name": "Apple Watch Series 5 - 44mm",
+        "udid": "A82B4A74-01C6-4E2B-9B35-8B4D631092AB",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 11 Pro Max",
+        "udid": "ED675ACA-F230-4AB0-A711-A3DA181B1648",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "1F1D2D0E-B415-4747-B714-2C80957AC3B2": {
+      "watch": {
+        "name": "Apple Watch Series 5 - 40mm",
+        "udid": "9B0ED85E-6CC2-472C-A75E-1A691F3AA9C9",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 11 Pro",
+        "udid": "853FDC4E-1403-471D-AFDA-EFCE97901B60",
         "state": "Shutdown"
       },
       "state": "(active, disconnected)"
+    },
+    "B80E497D-A0AB-44F4-B5A4-6546A6BC87DE": {
+      "watch": {
+        "name": "Apple Watch - 38mm",
+        "udid": "D573794D-28BA-49DE-94D3-1650C2B055A9",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 6s",
+        "udid": "3B10294A-BC9A-49D3-8EC9-0E7C7106A603",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "C6977AF1-9F90-4608-8B65-C08E9FB7C6E2": {
+      "watch": {
+        "name": "Apple Watch Series 4 - 40mm",
+        "udid": "14644D31-F586-4B5D-82F7-81564B9A423D",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone Xs",
+        "udid": "E686E9AB-A5D4-41D2-ADE0-9F3FCA8BDC12",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "43942C7B-6FDD-41BC-82EF-9004B4D1B357": {
+      "watch": {
+        "name": "Apple Watch Series 4 - 40mm",
+        "udid": "16A42DA5-E9C7-4D79-BC7C-3FB440CEA659",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone XS",
+        "udid": "E787836C-9484-4624-98AE-E7634FF0A686",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "2FD58040-7882-484D-BB3C-1DE68E2D3A09": {
+      "watch": {
+        "name": "Apple Watch Series 4 - 40mm",
+        "udid": "0CAC3DDC-1EAE-4E12-A3CC-8D872ED10D35",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone Xs",
+        "udid": "77B21BDE-51B9-4ACC-8F9A-5912FC2A772D",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "6327A3B1-89AA-46B9-84B5-34FEF3B50DA1": {
+      "watch": {
+        "name": "Apple Watch Series 3 - 38mm",
+        "udid": "C2C25C2D-3E40-4615-92F5-53D7A3199E66",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 8",
+        "udid": "AA40BC85-251E-487D-A1FA-E322B2D681E5",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "959EBB6D-84EC-4C94-B636-2B442A13DA35": {
+      "watch": {
+        "name": "Apple Watch Series 3 - 38mm",
+        "udid": "36D1E640-2934-48F0-9FA4-BD8195CE058D",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 8",
+        "udid": "B053730F-64E1-4FFE-A1BA-FEEB5E4E8B22",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "C43EE4DF-25BD-4B45-9AC0-BDF2AF10B542": {
+      "watch": {
+        "name": "Apple Watch Series 2 - 42mm",
+        "udid": "95390479-8AA9-4E88-8B02-E228CFA8EFDC",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 7 Plus",
+        "udid": "4AAEEE23-26A1-472D-8899-A835E1B46B57",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
+    },
+    "458D0C14-E435-4CD2-A2F8-986339DEC57D": {
+      "watch": {
+        "name": "Apple Watch Series 5 - 40mm",
+        "udid": "4D2F4528-D726-4CFB-9AD6-AB4AF075B1B7",
+        "state": "Shutdown"
+      },
+      "phone": {
+        "name": "iPhone 11 Pro",
+        "udid": "6F4C502F-0F15-43C2-80EF-55C8A731B967",
+        "state": "Shutdown"
+      },
+      "state": "(unavailable)"
     }
   }
 }

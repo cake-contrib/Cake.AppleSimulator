@@ -36,12 +36,12 @@ namespace Cake.AppleSimulator.Tests.Unit
             var result = fixture.Run();
 
             // Then
-            fixture.ToolResult.Should().HaveCount(15);
+            fixture.ToolResult.Should().HaveCount(50);
 
             fixture.ToolResult.First().Name.Should().Be("iPhone 4s"); // correct order
 
-            fixture.ToolResult.Last().Name.Should().Be("Apple Watch - 42mm");
-            fixture.ToolResult.Last().Identifier.Should().Be("com.apple.CoreSimulator.SimDeviceType.Apple-Watch-42mm");
+            fixture.ToolResult.Last().Name.Should().Be("Apple Watch Series 5 - 44mm");
+            fixture.ToolResult.Last().Identifier.Should().Be("com.apple.CoreSimulator.SimDeviceType.Apple-Watch-Series-5-44mm");
         }
 
         [Fact]
@@ -68,7 +68,7 @@ namespace Cake.AppleSimulator.Tests.Unit
             fixture.Invoking(x => x.Run())
 
             // Then
-                .ShouldThrow<CakeException>()
+                .Should().Throw<CakeException>()
                 .WithMessage("AppleSimulator: Could not locate executable.");
         }
 
@@ -83,7 +83,7 @@ namespace Cake.AppleSimulator.Tests.Unit
             fixture.Invoking(x => x.Run())
 
             // Then
-                .ShouldThrow<CakeException>()
+                .Should().Throw<CakeException>()
                 .WithMessage("AppleSimulator: Process returned an error (exit code 1).");
         }
 
@@ -98,7 +98,7 @@ namespace Cake.AppleSimulator.Tests.Unit
             fixture.Invoking(x => x.Run())
 
             // Then
-                .ShouldThrow<CakeException>()
+                .Should().Throw<CakeException>()
                 .WithMessage("AppleSimulator: Process was not started.");
         }
 
