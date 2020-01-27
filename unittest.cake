@@ -23,7 +23,7 @@ if (string.IsNullOrWhiteSpace(target))
 var isRunningOnMacOS = IsRunningOnUnix(); 
 var isRunningOnUnix = IsRunningOnUnix();
 var isRunningOnWindows = IsRunningOnWindows();
-var solution = "./src/Cake.AppleSimulator.sln";
+var solution = "./DeviceTests/DeviceTests.sln";
 var buildConfiguration = "Release";
 var buildTarget = "Build";
 
@@ -143,12 +143,12 @@ Task("UnitTestingFailExample")
     .Does (() =>
 {
     buildThisApp(
-        "./src/Test.NUnit/Test.NUnit.csproj",
+        "./DeviceTests/Test.NUnit/Test.NUnit.csproj",
         "UnitTesting",
         "Clean"    
     );
     buildThisApp(
-        "./src/Test.NUnit/Test.NUnit.csproj",
+        "./DeviceTests/Test.NUnit/Test.NUnit.csproj",
         "UnitTesting",
         "Build"    
     );
@@ -165,12 +165,12 @@ Task("UnitTestingPassExample")
     .Does (() =>
 {
     buildThisApp(
-        "./src/Test.XUnit/Test.XUnit.csproj",
+        "./DeviceTests/Test.XUnit/Test.XUnit.csproj",
         "UnitTesting",
         "Clean"    
     );
     buildThisApp(
-        "./src/Test.XUnit/Test.XUnit.csproj",
+        "./DeviceTests/Test.XUnit/Test.XUnit.csproj",
         "UnitTesting",
         "Build"    
     );
