@@ -31,7 +31,7 @@ namespace Cake.AppleSimulator.Tests.Unit
             // When
             fixture.Invoking(x => x.Run())
                 // Then
-                .ShouldThrow<CakeException>()
+                .Should().Throw<CakeException>()
                 .WithMessage("XcodeRun: Process returned an error (exit code 72).");
         }
 
@@ -44,8 +44,8 @@ namespace Cake.AppleSimulator.Tests.Unit
 
             // When
             fixture.Invoking(x => x.Run())
-               // Then
-               .ShouldNotThrow<CakeException>();
+                // Then
+                .Should().NotThrow<CakeException>();
         }
 
         [Theory]

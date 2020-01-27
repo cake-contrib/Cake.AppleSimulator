@@ -1,21 +1,50 @@
-version: 1.0.{build}
-environment:
-  GITHUB_USERNAME:
-    secure: 0Q9MvUId56SizmZwCf0cgg==
-  GITHUB_TOKEN:
-    secure: egpO9sZJN4KlnyHlFMSMu1NAeWZ/3diyUXLQMLF5HlnVb/6mXG8Lejm+Ib+4bCF7
-  NUGET_APIKEY:
-    secure: YP/3KxC2ffsuHNaolPXj66JVGzSjON9FcR2S2OEzn9c6SV14oPzUh1ySyeT+G+aA
-  NUGET_SOURCE: https://www.myget.org/F/ghuntley/api/v2
-xamarin:
-  email: ghuntley@ghuntley.com
-  password:
-    secure: 9PLfbvP3ON+Xk17Yd4rJag==
-  android: true
-  ios: true
+#---------------------------------#
+#  Build Image                    #
+#---------------------------------#
+image: Visual Studio 2017
+
+#---------------------------------#
+#  Build Script                   #
+#---------------------------------#
 build_script:
-- cmd: ./build.cmd
+  - ps: .\build.ps1 -Target AppVeyor
+
+#---------------------------------#
+# Tests
+#---------------------------------#
 test: off
-artifacts:
-- path: '**/bin/*'
-- path: artifacts/*
+
+#---------------------------------#
+#  Pull Requests                  #
+#---------------------------------#
+pull_requests:
+  do_not_increment_build_number: true
+
+#---------------------------------#
+#  General                        #
+#---------------------------------#
+skip_branch_with_pr: true
+
+#---------------------------------#
+#        Branches to build        #
+#---------------------------------#
+branches:
+  # Whitelist
+  only:
+    - develop
+    - master
+    - /release/.*/
+    - /hotfix/.*/
+
+#---------------------------------#
+#  Build Cache                    #
+#---------------------------------#
+cache:
+- tools -> recipe.cake, tools/packages.config
+
+#---------------------------------#
+#  Skip builds for doc changes    #
+#---------------------------------#
+skip_commits:
+  # Regex for matching commit message
+  message: /(doc).*/

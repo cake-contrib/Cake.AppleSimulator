@@ -74,7 +74,7 @@ namespace Cake.AppleSimulator.Tests.Unit
             fixture.Invoking(x => x.Run())
 
             // Then
-                .ShouldThrow<CakeException>()
+                .Should().Throw<CakeException>()
                 .WithMessage("AppleSimulator: Could not locate executable.");
         }
 
@@ -89,7 +89,7 @@ namespace Cake.AppleSimulator.Tests.Unit
             fixture.Invoking(x => x.Run())
 
             // Then
-                .ShouldThrow<CakeException>()
+                .Should().Throw<CakeException>()
                 .WithMessage("AppleSimulator: Process returned an error (exit code 1).");
         }
 
@@ -104,7 +104,7 @@ namespace Cake.AppleSimulator.Tests.Unit
             fixture.Invoking(x => x.Run())
 
             // Then
-                .ShouldThrow<CakeException>()
+                .Should().Throw<CakeException>()
                 .WithMessage("AppleSimulator: Process was not started.");
         }
 
