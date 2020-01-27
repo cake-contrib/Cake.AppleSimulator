@@ -36,18 +36,18 @@ namespace Cake.AppleSimulator.Tests.Unit
             var result = fixture.Run();
 
             // Then
-            fixture.ToolResult.Should().HaveCount(2);
+            fixture.ToolResult.Should().HaveCount(26);
 
-            fixture.ToolResult.First().UDID.Should().Be("AF4F827C-0576-4A2E-A18A-CEEE516568A4");
-            fixture.ToolResult.First().State.Should().Be("(active, disconnected)");
+            fixture.ToolResult.First().UDID.Should().Be("6B3FB034-93A6-4466-A59C-71C9F77CEDE1");
+            fixture.ToolResult.First().State.Should().Be("(unavailable)");
 
-            fixture.ToolResult.First().Watch.UDID.Should().Be("BA8B7A9D-48CE-4D2E-8F42-A1BE279DE374");
+            fixture.ToolResult.First().Watch.UDID.Should().Be("36A3FE85-19E8-4349-A348-FB2A1C81F1E0");
             fixture.ToolResult.First().Watch.State.Should().Be("Shutdown");
-            fixture.ToolResult.First().Watch.Name.Should().Be("Apple Watch - 38mm");
+            fixture.ToolResult.First().Watch.Name.Should().Be("Apple Watch Series 2 - 38mm");
 
-            fixture.ToolResult.First().Phone.UDID.Should().Be("388482AE-6B55-4C14-BF61-F0CAE3E993EA");
+            fixture.ToolResult.First().Phone.UDID.Should().Be("208EDBD6-FA1E-4682-A2C0-6DD4A619B4C1");
             fixture.ToolResult.First().Phone.State.Should().Be("Booted");
-            fixture.ToolResult.First().Phone.Name.Should().Be("iPhone 6s");
+            fixture.ToolResult.First().Phone.Name.Should().Be("iPhone 7");
         }
 
         [Fact]

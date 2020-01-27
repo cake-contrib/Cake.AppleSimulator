@@ -8,11 +8,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
+using Xunit.Abstractions;
 
 namespace Cake.AppleSimulator.Tests.Unit
 {
     public class AppleSimulatorListSimulatorTests
     {
+        public AppleSimulatorListSimulatorTests(ITestOutputHelper output)
+        {
+            OutputHelper = output;
+        }
+
+        public ITestOutputHelper OutputHelper { get; private set; }
+
         [Fact]
         public void Should_Find_AppleSimulator_If_Tool_Path_Not_Provided()
         {
@@ -36,15 +44,17 @@ namespace Cake.AppleSimulator.Tests.Unit
             var result = fixture.Run();
 
             // Then
-            fixture.ToolResult.Should().HaveCount(53);
+            fixture.ToolResult.Should().HaveCount(266);
 
-            fixture.ToolResult.First().Name.Should().Be("Apple TV 1080p"); // correct order
+            fixture.ToolResult.First().Name.Should().Be("Apple Watch - 38mm"); // correct order
 
-            fixture.ToolResult.First(x => x.Runtime == "iOS 9.3").Name.Should().Be("iPhone 4s");
-            fixture.ToolResult.First(x => x.Runtime == "iOS 9.3").Availability.Should().Be("(available)");
-            fixture.ToolResult.First(x => x.Runtime == "iOS 9.3").IsAvailable.Should().Be(true);
-            fixture.ToolResult.First(x => x.Runtime == "iOS 9.3").State.Should().Be("Shutdown");
-            fixture.ToolResult.First(x => x.Runtime == "iOS 9.3").Runtime.Should().Be("iOS 9.3");
+            var runtime = "com.apple.CoreSimulator.SimRuntime.iOS-13-2";
+            var item = fixture.ToolResult.First(x => x.Runtime == runtime);
+
+            item.Name.Should().Be("iPhone 8");
+            item.IsAvailable.Should().Be(true);
+            item.State.Should().Be("Shutdown");
+            item.Runtime.Should().Be(runtime);
         }
 
         [Fact]

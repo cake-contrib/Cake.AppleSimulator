@@ -36,12 +36,12 @@ namespace Cake.AppleSimulator.Tests.Unit
             var result = fixture.Run();
 
             // Then
-            fixture.ToolResult.Should().HaveCount(3);
+            fixture.ToolResult.Should().HaveCount(5);
 
-            fixture.ToolResult.First().Name.Should().Be("iOS 9.3"); // correct order
+            fixture.ToolResult.First().Name.Should().Be("iOS 10.3"); // correct order
 
-            fixture.ToolResult.Last().Name.Should().Be("watchOS 2.2");
-            fixture.ToolResult.Last().Identifier.Should().Be("com.apple.CoreSimulator.SimRuntime.watchOS-2-2");
+            fixture.ToolResult.Last().Name.Should().Be("watchOS 6.1");
+            fixture.ToolResult.Last().Identifier.Should().Be("com.apple.CoreSimulator.SimRuntime.watchOS-6-1");
         }
 
         [Fact]
