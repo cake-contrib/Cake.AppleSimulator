@@ -1,4 +1,6 @@
-﻿namespace Cake.AppleSimulator
+﻿using System;
+
+namespace Cake.AppleSimulator
 {
     public sealed class AppleSimulator
     {
